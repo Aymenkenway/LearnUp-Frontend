@@ -1,7 +1,14 @@
+import TopNav from '@/components/TopNav'
 import '@/styles/globals.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import 'antd/dist/antd.js'
+
+import '../public/css/styles.css'
 
 export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <>
+      <TopNav />
+      <Component {...pageProps} />
+    </>
+  )
 }

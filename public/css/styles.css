@@ -1,0 +1,7 @@
+.jumbotrons {
+  background: linear-gradient(
+    to right,
+    #007bff,
+    #000
+  ); /* Correct property for gradients */
+}
