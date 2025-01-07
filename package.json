@@ -13,6 +13,7 @@
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
     "antd": "^5.22.7",
+    "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "next": "^13.x.x",
     "react": "^18.2.0",

@@ -1,18 +1,24 @@
 import { useState } from 'react'
-
+import axios from 'axios'
 const Register = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.table({ name, email, password })
+    // console.table({ name, email, password })
+    const { data } = await axios.post('http://localhost:8000/api/register', {
+      name,
+      email,
+      password,
+    })
+    console.log('regisetr dta ,', data)
   }
 
   return (
     <>
-      <h1 className='jumbotron text-center bg-primary square'>Register</h1>
+      <h1 className=' p-5 mb-4 jumbotrons text-center text-light'>Register</h1>
 
       <div className='container col-md-4 offset-md-4 pb-5'>
         <form onSubmit={handleSubmit}>
