@@ -1,68 +1,41 @@
-// import { Menu } from 'antd'
-// import Link from 'next/link'
-// import { LoginOutlined, HomeOutlined } from '@ant-design/icons'
-
-// const { Item } = Menu
-// const TopNav = () => {
-//   return (
-//     <Menu mode='horizontal'>
-//       <Item icon={HomeOutlined}>
-//         <Link href='/'>App</Link>
-//       </Item>
-//       <Item icon={LoginOutlined}>
-//         <Link href='/login'>Login</Link>
-//       </Item>
-//       <Item icon={LoginOutlined}>
-//         <Link href='/register'>Register</Link>
-//       </Item>
-//     </Menu>
-//   )
-// }
-
-// export default TopNav
-
-import { useState } from 'react'
-import { SettingOutlined } from '@ant-design/icons'
+import { useState, useEffect } from 'react'
 import { Menu } from 'antd'
-const items = [
-  {
-    key: 'home',
-    label: (
-      <a href='/home' target='_blank'>
-        Home
-      </a>
-    ),
-    icon: <SettingOutlined />,
-  },
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import {
+  AppstoreOutlined,
+  LoginOutlined,
+  UserAddOutlined,
+} from '@ant-design/icons'
 
-  {
-    key: 'login',
-    label: <a href='/login'>Login</a>,
-    icon: <SettingOutlined />,
-  },
-  {
-    key: 'register',
-    label: (
-      <a href='/register' rel='noopener noreferrer'>
-        Register
-      </a>
-    ),
-    icon: <SettingOutlined />,
-  },
-]
 const TopNav = () => {
-  const [current, setCurrent] = useState('mail')
-  const onClick = (e) => {
-    console.log('click ', e)
-    setCurrent(e.key)
-  }
-  return (
-    <Menu
-      onClick={onClick}
-      selectedKeys={[current]}
-      mode='horizontal'
-      items={items}
-    />
-  )
+  const [current, setCurrent] = useState('')
+  const router = useRouter()
+
+  useEffect(() => {
+    // Update the current state whenever the route changes
+    setCurrent(router.pathname)
+  }, [router.pathname])
+
+  const menuItems = [
+    {
+      key: '/',
+      icon: <AppstoreOutlined />,
+      label: <Link href='/'>App</Link>,
+    },
+    {
+      key: '/login',
+      icon: <LoginOutlined />,
+      label: <Link href='/login'>Login</Link>,
+    },
+    {
+      key: '/register',
+      icon: <UserAddOutlined />,
+      label: <Link href='/register'>Register</Link>,
+    },
+  ]
+
+  return <Menu mode='horizontal' selectedKeys={[current]} items={menuItems} />
 }
+
 export default TopNav

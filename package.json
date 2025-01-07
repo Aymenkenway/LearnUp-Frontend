@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node server.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -15,9 +15,12 @@
     "antd": "^5.22.7",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
+    "express": "^4.21.2",
+    "http-proxy-middleware": "^3.0.3",
     "next": "^13.x.x",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-toastify": "^11.0.2"
   },
   "devDependencies": {
     "postcss": "^8",
