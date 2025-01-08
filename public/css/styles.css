@@ -1,7 +1,8 @@
-.jumbotrons {
-  background: linear-gradient(
-    to right,
-    #007bff,
-    #000
-  ); /* Correct property for gradients */
+.square {
+  border-radius: 0px;
+}
+
+.jumbotron {
+  background-image: linear-gradient(to right, #007bff, #000);
+  color: #fff;
 }

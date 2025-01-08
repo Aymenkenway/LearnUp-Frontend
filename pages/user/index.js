@@ -9,8 +9,8 @@ const UserIndex = () => {
 
   return (
     <UserRoute>
-      <h1 className='jumbotron text-center square'>
-        <pre>{JSON.stringify(user, null, 4)}</pre>
+      <h1 className='text-center text-light p-5 mb-4 jumbotrons'>
+        User dashboard
       </h1>
     </UserRoute>
   )

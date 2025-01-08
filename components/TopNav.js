@@ -1,31 +1,33 @@
 import { useState, useEffect, useContext } from 'react'
-import { Menu, Dropdown } from 'antd'
+import { Menu } from 'antd'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import {
   AppstoreOutlined,
-  LoginOutlined,
-  UserAddOutlined,
-  LogoutOutlined,
-  DownOutlined,
   CoffeeOutlined,
+  LoginOutlined,
+  LogoutOutlined,
+  UserAddOutlined,
+  CarryOutOutlined,
+  TeamOutlined,
 } from '@ant-design/icons'
-const { Item, SubMenu, ItemGroup } = Menu
-
 import { Context } from '../context'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
+
+const { Item, SubMenu, ItemGroup } = Menu
 
 const TopNav = () => {
   const [current, setCurrent] = useState('')
-  const router = useRouter()
+
   const { state, dispatch } = useContext(Context)
   const { user } = state
 
+  const router = useRouter()
+
   useEffect(() => {
-    // Update the current state whenever the route changes
-    setCurrent(router.pathname)
-  }, [router.pathname])
+    process.browser && setCurrent(window.location.pathname)
+  }, [process.browser && window.location.pathname])
 
   const logout = async () => {
     dispatch({ type: 'LOGOUT' })
@@ -34,39 +36,40 @@ const TopNav = () => {
     toast(data.message)
     router.push('/login')
   }
-  // const menuItems = [
-  //   {
-  //     key: '/',
-  //     icon: <AppstoreOutlined />,
-  //     label: <Link href='/'>App</Link>,
-  //   },
-  //   {
-  //     key: '/login',
-  //     icon: <LoginOutlined />,
-  //     label: <Link href='/login'>Login</Link>,
-  //   },
-  //   {
-  //     key: '/register',
-  //     icon: <UserAddOutlined />,
-  //     label: <Link href='/register'>Register</Link>,
-  //   },
-  //   {
-  //     key: '/logout',
-  //     icon: <UserAddOutlined />,
-  //     label: 'Logout',
-  //     onClick: logout,
-  //   },
-  // ]
 
   return (
-    <Menu mode='horizontal' selectedKeys={[current]}>
+    <Menu mode='horizontal' selectedKeys={[current]} className='mb-2'>
       <Item
         key='/'
         onClick={(e) => setCurrent(e.key)}
         icon={<AppstoreOutlined />}
       >
-        <Link href='/'>LearnUp</Link>
+        <Link legacyBehavior href='/'>
+          <a>App</a>
+        </Link>
       </Item>
+
+      {user && user.role && user.role.includes('Instructor') ? (
+        <Item
+          key='/instructor/course/create'
+          onClick={(e) => setCurrent(e.key)}
+          icon={<CarryOutOutlined />}
+        >
+          <Link legacyBehavior href='/instructor/course/create'>
+            <a>Create Course</a>
+          </Link>
+        </Item>
+      ) : (
+        <Item
+          key='/user/become-instructor'
+          onClick={(e) => setCurrent(e.key)}
+          icon={<TeamOutlined />}
+        >
+          <Link legacyBehavior href='/user/become-instructor'>
+            <a>Become Instructor</a>
+          </Link>
+        </Item>
+      )}
 
       {user === null && (
         <>
@@ -75,7 +78,9 @@ const TopNav = () => {
             onClick={(e) => setCurrent(e.key)}
             icon={<LoginOutlined />}
           >
-            <Link href='/login'>Login</Link>
+            <Link legacyBehavior href='/login'>
+              <a>Login</a>
+            </Link>
           </Item>
 
           <Item
@@ -83,20 +88,37 @@ const TopNav = () => {
             onClick={(e) => setCurrent(e.key)}
             icon={<UserAddOutlined />}
           >
-            <Link href='/register'>Register</Link>
+            <Link legacyBehavior href='/register'>
+              <a>Register</a>
+            </Link>
           </Item>
         </>
       )}
 
+      {user && user.role && user.role.includes('Instructor') && (
+        <Item
+          key='/instructor'
+          onClick={(e) => setCurrent(e.key)}
+          icon={<TeamOutlined />}
+          style={{ marginLeft: 'auto' }}
+        >
+          <Link legacyBehavior href='/instructor'>
+            <a>Instructor</a>
+          </Link>
+        </Item>
+      )}
+
       {user !== null && (
         <SubMenu
+          key='submenu'
           icon={<CoffeeOutlined />}
           title={user && user.name}
-          className='float-right'
         >
           <ItemGroup>
             <Item key='/user'>
-              <Link href='/user'>Dashboard</Link>
+              <Link legacyBehavior href='/user'>
+                <a>Dashboard</a>
+              </Link>
             </Item>
             <Item onClick={logout}>Logout</Item>
           </ItemGroup>

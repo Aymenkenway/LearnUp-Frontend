@@ -20,7 +20,7 @@ const Login = () => {
   } = useContext(Context)
 
   useEffect(() => {
-    if (user !== null) router.push('/')
+    if (user !== null) router.push('/user')
   }, [user])
 
   const handleSubmit = async (e) => {
@@ -40,7 +40,7 @@ const Login = () => {
       // save in local storage
       window.localStorage.setItem('user', JSON.stringify(data))
       //redirect after login
-      console.log('to suer')
+
       router.push('/user')
       // setLoading(false);
     } catch (err) {
