@@ -26,8 +26,10 @@ const TopNav = () => {
   const router = useRouter()
 
   useEffect(() => {
-    process.browser && setCurrent(window.location.pathname)
-  }, [process.browser && window.location.pathname])
+    if (typeof window !== 'undefined') {
+      setCurrent(window.location.pathname)
+    }
+  }, [typeof window !== 'undefined' && window.location.pathname])
 
   const logout = async () => {
     dispatch({ type: 'LOGOUT' })
@@ -114,13 +116,15 @@ const TopNav = () => {
           icon={<CoffeeOutlined />}
           title={user && user.name}
         >
-          <ItemGroup>
-            <Item key='/user'>
+          <ItemGroup key='itemgroup'>
+            <Item key='user-dashboard'>
               <Link legacyBehavior href='/user'>
                 <a>Dashboard</a>
               </Link>
             </Item>
-            <Item onClick={logout}>Logout</Item>
+            <Item key='logout' onClick={logout}>
+              Logout
+            </Item>
           </ItemGroup>
         </SubMenu>
       )}
