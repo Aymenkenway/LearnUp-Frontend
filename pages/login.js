@@ -20,7 +20,7 @@ const Login = () => {
   } = useContext(Context)
 
   useEffect(() => {
-    if (user !== null) router.push('/')
+    if (user !== null) router.push('/user')
   }, [user])
 
   const handleSubmit = async (e) => {
