@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import InstructorRoute from '../../components/routes/InstructorRoute'
-import { Avatar } from 'antd'
+import { Avatar, Tooltip } from 'antd'
 import Link from 'next/link'
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons'
 
@@ -50,28 +50,40 @@ const InstructorIndex = () => {
                     </p>
 
                     {course.lessons.length < 5 ? (
-                      <p style={myStyle} className='text-warning'>
+                      <p
+                        style={{ marginTop: '-15px', fontSize: '10px' }}
+                        className='text-warning'
+                      >
                         At least 5 lessons are required to publish a course
                       </p>
                     ) : course.published ? (
-                      <p style={myStyle} className='text-success'>
+                      <p
+                        style={{ marginTop: '-15px', fontSize: '10px' }}
+                        className='text-success'
+                      >
                         Your course is live in the marketplace
                       </p>
                     ) : (
-                      <p style={myStyle} className='text-success'>
+                      <p
+                        style={{ marginTop: '-15px', fontSize: '10px' }}
+                        className='text-success'
+                      >
                         Your course is ready to be published
                       </p>
                     )}
                   </div>
-
-                  <div className='col-md-3 mt-3 text-center'>
+                  <div className='mt-3 float-right pr-4 text-center'>
                     {course.published ? (
                       <div>
                         <CheckCircleOutlined className='h5 pointer text-success' />
+                        <br />
+                        <small className='text-muted'>Published</small>
                       </div>
                     ) : (
                       <div>
                         <CloseCircleOutlined className='h5 pointer text-warning' />
+                        <br />
+                        <small className='text-muted'>Unpublished</small>
                       </div>
                     )}
                   </div>

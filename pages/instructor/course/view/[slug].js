@@ -3,7 +3,13 @@ import { useRouter } from 'next/router'
 import InstructorRoute from '../../../../components/routes/InstructorRoute'
 import axios from 'axios'
 import { Avatar, Tooltip, Button, Modal, List } from 'antd'
-import { EditOutlined, CheckOutlined, UploadOutlined } from '@ant-design/icons'
+import {
+  EditOutlined,
+  CheckOutlined,
+  UploadOutlined,
+  QuestionOutlined,
+  CloseOutlined,
+} from '@ant-design/icons'
 import ReactMarkdown from 'react-markdown'
 import AddLessonForm from '../../../../components/forms/AddLessonForm.js'
 import { toast } from 'react-toastify'
@@ -43,8 +49,10 @@ const CourseView = () => {
       )
       // console.log(data)
       setValues({ ...values, title: '', content: '', video: {} })
-      setVisible(false)
+      setProgress(0)
       setUploadButtonText('Upload video')
+      setVisible(false)
+
       setCourse(data)
       toast('Lesson added')
     } catch (err) {
@@ -99,6 +107,44 @@ const CourseView = () => {
       toast('Video remove failed')
     }
   }
+  const handlePublish = async (e, courseId) => {
+    //console.log(course.instructor._id)
+    // return;
+    try {
+      let answer = window.confirm(
+        'Once you publish your course, it will be live in the marketplace for students to enroll.'
+      )
+      console.log('hhhhhhhhh', courseId)
+      if (!answer) return
+      console.log(answer)
+      const { data } = await axios.put(`/api/course/publish/${courseId}`)
+      console.log('COURSE PUBLISHED RES', data)
+      toast('Congrats. Your course is now live in marketplace!')
+      setCourse(data)
+    } catch (err) {
+      toast('Course publish failed. Try again')
+    }
+  }
+
+  const handleUnpublish = async (e, courseId) => {
+    //console.log(course.instructor._id)
+    // return;
+    try {
+      let answer = window.confirm(
+        'Once you publish your course, it will be live in the marketplace for students to enroll.'
+      )
+      console.log('hhhhhhhhh', courseId)
+      if (!answer) return
+      console.log(answer)
+      const { data } = await axios.put(`/api/course/unpublish/${courseId}`)
+      console.log('COURSE PUBLISHED RES', data)
+      toast('Your course is now NOT live in marketplace!')
+      setCourse(data)
+    } catch (err) {
+      toast('Course publish failed. Try again')
+    }
+  }
+
   return (
     <InstructorRoute>
       <div className='contianer-fluid pt-3'>
@@ -132,9 +178,31 @@ const CourseView = () => {
                         className='h5 pointer text-warning mr-4'
                       />
                     </Tooltip>
-                    <Tooltip title='Publish'>
-                      <CheckOutlined className='h5 pointer text-danger' />
-                    </Tooltip>
+
+                    {/* course published ? unpublished */}
+
+                    {course.lessons && course.lessons.length < 5 ? (
+                      <Tooltip title='Min 5 lessons required to publish'>
+                        <QuestionOutlined className='h5 pointer text-danger' />
+                      </Tooltip>
+                    ) : course.published ? (
+                      <Tooltip title='Unpublish'>
+                        <CloseOutlined
+                          onClick={(e) => handleUnpublish(e, course._id)}
+                          className='h5 pointer text-danger'
+                        />
+                        {console.log('here phblished')}
+                      </Tooltip>
+                    ) : (
+                      <Tooltip title='Publish'>
+                        <CheckOutlined
+                          onClick={(e) => handlePublish(e, course._id)}
+                          className='h5 pointer text-success'
+                        />
+                        {console.log('is it ', course.published)}
+                        {console.log('here 2')}
+                      </Tooltip>
+                    )}
                   </div>
                 </div>
               </div>
