@@ -1,6 +1,6 @@
 import { Card, Badge } from 'antd'
 import Link from 'next/link'
-//import { currencyFormatter } from '../../utils/helpers'
+import { currencyFormatter } from '../../utils/helpers.js'
 
 const { Meta } = Card
 
@@ -8,7 +8,7 @@ const CourseCard = ({ course }) => {
   // destructure
   const { name, instructor, price, image, slug, paid, category } = course
   return (
-    <Link legacyBehavior href='/course/{slug}'>
+    <Link legacyBehavior href={`/course/${slug}`}>
       <a>
         <Card
           className='mb-4'
@@ -30,7 +30,15 @@ const CourseCard = ({ course }) => {
             className='pb-2 mr-2'
           />
 
-          <h4 className='pt-2'>{paid ? price : 'Free'}</h4>
+          <h4 className='pt-2'>
+            {' '}
+            {paid
+              ? currencyFormatter({
+                  amount: price,
+                  currency: 'usd',
+                })
+              : 'Free'}
+          </h4>
         </Card>
       </a>
     </Link>
