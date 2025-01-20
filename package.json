@@ -12,6 +12,7 @@
     "@ant-design/icons": "^5.5.2",
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
+    "@stripe/stripe-js": "^1.54.2",
     "antd": "^5.23.0",
     "axios": "^1.7.9",
     "bootstrap": "^4.6.0",
