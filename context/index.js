@@ -66,7 +66,7 @@ const Provider = ({ children }) => {
     const getCsrfToken = async () => {
       try {
         const { data } = await axios.get('/api/csrf-token')
-        console.log('CSRF', data)
+
         // Assign the token to axios default headers
         axios.defaults.headers['X-CSRF-Token'] = data.csrfToken
       } catch (error) {

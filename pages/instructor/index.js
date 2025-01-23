@@ -31,8 +31,6 @@ const InstructorIndex = () => {
                 src={course.image ? course.image.url : '/course.png'}
               />
 
-              {console.log(course)}
-
               <div className='media-body pl-2'>
                 <div className='row'>
                   <div className='col'>

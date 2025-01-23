@@ -45,7 +45,6 @@ const CourseEdit = () => {
 
   const loadCourse = async () => {
     const { data } = await axios.get(`/api/course/${slug}`)
-    console.log(data)
     if (data) setValues(data)
     if (data && data.image) setImage(data.image)
   }
@@ -65,7 +64,7 @@ const CourseEdit = () => {
         let { data } = await axios.post('/api/course/upload-image', {
           image: uri,
         })
-        console.log('IMAGE UPLOADED', data)
+
         // set image in the state
         setImage(data)
         setValues({ ...values, loading: false })
@@ -79,7 +78,6 @@ const CourseEdit = () => {
 
   const handleImageRemove = async () => {
     try {
-      // console.log(values);
       setValues({ ...values, loading: true })
       const res = await axios.post('/api/course/remove-image', { image })
       setImage({})
@@ -96,7 +94,6 @@ const CourseEdit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      // console.log(values);
       const { data } = await axios.put(`/api/course/${slug}`, {
         ...values,
         image,
@@ -109,13 +106,10 @@ const CourseEdit = () => {
   }
 
   const handleDrag = (e, index) => {
-    // console.log("ON DRAG => ", index);
     e.dataTransfer.setData('itemIndex', index)
   }
 
   const handleDrop = async (e, index) => {
-    // console.log("ON DROP => ", index);
-
     const movingItemIndex = e.dataTransfer.getData('itemIndex')
     const targetItemIndex = index
     let allLessons = values.lessons
@@ -130,7 +124,7 @@ const CourseEdit = () => {
       ...values,
       image,
     })
-    // console.log("LESSONS REARRANGED RES => ", data);
+
     toast('Lessons rearranged successfully')
   }
 
@@ -139,11 +133,10 @@ const CourseEdit = () => {
     if (!answer) return
     let allLessons = values.lessons
     const removed = allLessons.splice(index, 1)
-    // console.log("removed", removed[0]._id);
+
     setValues({ ...values, lessons: allLessons })
     // send request to server
     const { data } = await axios.put(`/api/course/${slug}/${removed[0]._id}`)
-    console.log('LESSON DELETED =>', data)
   }
 
   const handleVideo = async (e) => {
@@ -153,16 +146,13 @@ const CourseEdit = () => {
         `/api/course/video-remove/${values.instructor._id}`,
         current.video
       )
-      console.log('REMOVED ===> ', res)
     }
     // upload
     const file = e.target.files[0]
-    console.log(file)
     setUploadButtonText(file.name)
     setUploading(true)
     // send video as form data
     const videoData = new FormData()
-    console.log('form data', videoData)
     videoData.append('video', file)
     videoData.append('courseId', values._id)
     // save progress bar and send video as form data to backend
@@ -175,21 +165,18 @@ const CourseEdit = () => {
       }
     )
     // once response is received
-    console.log(data)
     setCurrent({ ...current, video: data })
     setUploading(false)
   }
 
   const handleUpdateLesson = async (e) => {
     e.preventDefault()
-    // console.log("CURRENT", current);
-    // console.log("**SEND TO BACKEND**");
+
     // console.table({ values });
     let { data } = await axios.put(
       `/api/course/lesson/${slug}/${current._id}`,
       current
     )
-    // console.log("LESSON UPDATED AND SAVED ===> ", data);
     setUploadButtonText('Upload video')
     setProgress(0)
     setVisible(false)
