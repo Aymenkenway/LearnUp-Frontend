@@ -7,9 +7,9 @@ import { Context } from '../context'
 import { useRouter } from 'next/router'
 
 const Register = () => {
-  const [name, setName] = useState('aymen')
-  const [email, setEmail] = useState('aymen@gmail.com')
-  const [password, setPassword] = useState('rrrrrr')
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const {
     state: { user },
@@ -42,7 +42,7 @@ const Register = () => {
 
   return (
     <>
-      <h1 className=' p-5 mb-4 jumbotrons text-center text-light'>Register</h1>
+      <h1 className=' jumbotron text-center bg-primary square'>Register</h1>
 
       <div className='container col-md-4 offset-md-4 pb-5'>
         <form onSubmit={handleSubmit}>

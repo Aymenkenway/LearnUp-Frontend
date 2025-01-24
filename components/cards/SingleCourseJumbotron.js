@@ -34,24 +34,75 @@ const SingleCourseJumbotron = ({
     <div className='jumbotron bg-primary square'>
       <div className='row'>
         <div className='col-md-8'>
-          {/* title */}
-          <h1 className='text-light font-weight-bold'>{name}</h1>
-          {/* description */}
-          <div className='lead'>
+          {/* Title */}
+          <h1
+            className='text-light font-weight-bold'
+            style={{ fontSize: '2.5rem', marginBottom: '1rem' }}
+          >
+            {name}
+          </h1>
+
+          {/* Description */}
+          <p
+            className='lead text-light'
+            style={{
+              fontSize: '1.1rem',
+              marginBottom: '1.5rem',
+              lineHeight: '1.6',
+            }}
+          >
             {description && description.substring(0, 160)}...
-          </div>
-          {/* category */}
+          </p>
+
+          {/* Category Badge */}
           <Badge
             count={category}
-            style={{ backgroundColor: '#03a9f4' }}
-            className='pb-4 mr-2'
+            style={{
+              backgroundColor: '#03a9f4',
+
+              fontSize: '1rem',
+              fontWeight: '500',
+              borderRadius: '8px',
+            }}
+            className='pb-4 mr-3'
           />
-          {/* author */}
-          <div>Created by {instructor.name}</div>
-          {/* updated at */}
-          <div>Last udpated {new Date(updatedAt).toLocaleDateString()}</div>
-          {/* price */}
-          <h4 className='text-light'>
+
+          {/* Author */}
+          <div
+            className='text-light'
+            style={{
+              fontSize: '1rem',
+              marginTop: '1rem',
+              marginBottom: '0.5rem',
+              fontWeight: '500',
+            }}
+          >
+            Created by{' '}
+            <span style={{ fontWeight: '700' }}>{instructor.name}</span>
+          </div>
+
+          {/* Updated At */}
+          <div
+            className='text-light'
+            style={{
+              fontSize: '0.95rem',
+              color: '#d0d0d0',
+              marginBottom: '1rem',
+            }}
+          >
+            Last updated: {new Date(updatedAt).toLocaleDateString()}
+          </div>
+
+          {/* Price */}
+          <h4
+            className='text-light'
+            style={{
+              fontSize: '1.8rem',
+              fontWeight: '700',
+              marginTop: '1.5rem',
+              marginBottom: '0',
+            }}
+          >
             {paid
               ? currencyFormatter({
                   amount: price,
@@ -60,6 +111,7 @@ const SingleCourseJumbotron = ({
               : 'Free'}
           </h4>
         </div>
+
         <div className='col-md-4'>
           {/* {JSON.stringify(lessons[0])} */}
           {/* show video preview or course image */}
@@ -80,7 +132,12 @@ const SingleCourseJumbotron = ({
             </div>
           ) : (
             <>
-              <img src={image.url} alt={name} className='img img-fluid' />
+              <img
+                style={{ height: '225px', width: '100%' }}
+                src={image.url}
+                alt={name}
+                className='img img-fluid'
+              />
             </>
           )}
           {/* enroll button */}

@@ -1,44 +1,72 @@
-import { Card, Badge } from 'antd'
+import { Card, Badge, Typography, Space, Avatar } from 'antd'
 import Link from 'next/link'
-import { currencyFormatter } from '../../utils/helpers.js'
+import { currencyFormatter } from '../../utils/helpers'
 
-const { Meta } = Card
+const { Title, Paragraph } = Typography
 
 const CourseCard = ({ course }) => {
-  // destructure
   const { name, instructor, price, image, slug, paid, category } = course
+
   return (
     <Link legacyBehavior href={`/course/${slug}`}>
       <a>
         <Card
-          className='mb-4'
+          hoverable
+          style={{
+            borderRadius: '10px',
+            overflow: 'hidden',
+            width: '460px', // Reduced width for a compact look
+            height: 'auto',
+            margin: '0 auto', // Center the card if space allows
+          }}
           cover={
             <img
               src={image.url}
               alt={name}
-              style={{ height: '200px', objectFit: 'cover' }}
-              className='p-1'
+              style={{
+                height: '160px',
+                objectFit: 'cover',
+                borderTopLeftRadius: '10px',
+                borderTopRightRadius: '10px',
+              }}
             />
           }
         >
-          <h2 className='h4 font-weight-bold'>{name}</h2>
-          <p>by {instructor.name}</p>
+          <Space direction='vertical' size='small' style={{ width: '100%' }}>
+            {/* Title */}
+            <Title level={5} ellipsis style={{ margin: 0 }}>
+              {name}
+            </Title>
 
-          <Badge
-            count={category}
-            style={{ backgroundColor: '#03a9f4' }}
-            className='pb-2 mr-2'
-          />
+            {/* Instructor */}
+            <Space align='center'>
+              <Avatar size='small' style={{ backgroundColor: '#87d068' }}>
+                {instructor.name[0].toUpperCase()}
+              </Avatar>
+              <Paragraph style={{ margin: 0 }} ellipsis>
+                {instructor.name}
+              </Paragraph>
+            </Space>
 
-          <h4 className='pt-2'>
-            {' '}
-            {paid
-              ? currencyFormatter({
-                  amount: price,
-                  currency: 'usd',
-                })
-              : 'Free'}
-          </h4>
+            {/* Category */}
+            <Badge
+              count={category}
+              style={{
+                backgroundColor: '#1890ff',
+                color: 'white',
+              }}
+            />
+
+            {/* Price */}
+            <Title level={5} style={{ marginTop: 8, marginBottom: 0 }}>
+              {paid
+                ? currencyFormatter({
+                    amount: price,
+                    currency: 'usd',
+                  })
+                : 'Free'}
+            </Title>
+          </Space>
         </Card>
       </a>
     </Link>

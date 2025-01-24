@@ -41,13 +41,9 @@ const TopNav = () => {
 
   return (
     <Menu mode='horizontal' selectedKeys={[current]} className='mb-2'>
-      <Item
-        key='/'
-        onClick={(e) => setCurrent(e.key)}
-        icon={<AppstoreOutlined />}
-      >
+      <Item key='/' onClick={(e) => setCurrent(e.key)}>
         <Link legacyBehavior href='/'>
-          <a>App</a>
+          <a>LearnUp</a>
         </Link>
       </Item>
 

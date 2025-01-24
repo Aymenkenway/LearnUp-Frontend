@@ -35,7 +35,7 @@ const CourseCreate = () => {
         let { data } = await axios.post('/api/course/upload-image', {
           image: uri,
         })
-        console.log('IMAGE UPLOADED', data)
+
         // set image in the state
         setImage(data)
         setValues({ ...values, loading: false })
@@ -71,7 +71,6 @@ const CourseCreate = () => {
         ...values,
         image,
       })
-      console.log('hhhhhhhhhhhhhhhh', data)
       toast('Great! Now you can start adding lessons')
       router.push('/instructor')
     } catch (err) {
@@ -94,9 +93,6 @@ const CourseCreate = () => {
           handleImageRemove={handleImageRemove}
         />
       </div>
-      <pre>{JSON.stringify(values, null, 4)}</pre>
-      <hr />
-      <pre>{JSON.stringify(image, null, 4)}</pre>
     </InstructorRoute>
   )
 }

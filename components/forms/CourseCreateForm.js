@@ -106,7 +106,7 @@ const CourseCreateForm = ({
                 <Avatar width={200} src={preview} />
               </Badge>
             )}
-            {editPage ? 'true' : 'fale'}
+
             {editPage && values.image && (
               <Avatar width={200} src={values.image.url} />
             )}
